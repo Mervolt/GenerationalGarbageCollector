@@ -1,37 +1,76 @@
-\documentclass[english]{beamer}
-\author{Michal Makson, Rafal Gawel}
-\usetheme{CambridgeUS}
-\institute{AGH}
+% sizes tiny scriptsize footnotesize small normalsize large Large LARGE huge Huge
+
+\documentclass[presentation]{beamer}
+
+\usetheme{JuanLesPins}
+\usecolortheme{orchid}
+\setbeamertemplate{headline}{}
+\setbeamertemplate{navigation symbols}{}
+
+\usepackage{subfig}
+\usepackage{graphicx}
+\usepackage[english]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{color}
+\usepackage{listings}
+\input{listing_theme.tex}
+
 \usepackage{tikz}
+
+
+% Add any additional packages you use in your presentation
+% -----pack
+% \usepackage{xxx}
+% -----
+
+% Add your custom definitions etc., if required
+% -----misc
+% \newcommand{\xxx}[1]{[#1]}
+% -----
+
+
+
+
+\title{Generational Garbage Collector}
+\author{Michal Makson, Rafal Gawel}
+\institute{AGH}
+\date{}
+
+
 \begin{document}
-	\begin{frame}{Generational Garbage Collector}{Michal Makson, Rafal Gawel}
-	\end{frame}
-	\begin{frame}{What is Garbage Collector?}
-		Definition...
-	\end{frame}
 
-	\begin{frame}{Lifetime of Objects}
-		Add chart...
-	\end{frame}
+\begin{frame}
+  \titlepage
+\end{frame}
 
-	\begin{frame}{Weak generational hypothesis}
-		Most objects die young
-	\end{frame}
+\begin{frame}{What is Garbage Collector?}
+Definition...
+\end{frame}
 
-	\begin{frame}{How can we benefit from this?}
-		Speed up Garbage Collector
-		Collect old objects only when necessary
-	\end{frame}
+\begin{frame}{Lifetime of Objects}
+Add chart...
+\end{frame}
 
-	\begin{frame}
-		Splitting into generations
-	\end{frame}
-	
-	\begin{frame}
-		By example of Java Heap fraction Eden, survivors..
-	\end{frame}
+\begin{frame}{Weak generational hypothesis}
+Most objects die young
+\end{frame}
 
-	\begin{frame}{Mark and Sweep}{Generational collector}
-		content...
-	\end{frame}
+\begin{frame}{How can we benefit from this?}
+Speed up Garbage Collector
+Collect old objects only when necessary
+\end{frame}
+
+\begin{frame}
+Splitting into generations
+\end{frame}
+
+\begin{frame}
+By example of Java Heap fraction Eden, survivors..
+\end{frame}
+
+\begin{frame}{Mark and Sweep}{Generational collector}
+content...
+\end{frame}
+
+
 \end{document}
