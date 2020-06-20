@@ -6,7 +6,7 @@
 \usecolortheme{orchid}
 \setbeamertemplate{headline}{}
 \setbeamertemplate{navigation symbols}{}
-
+\usepackage{enumerate}
 \usepackage{subfig}
 \usepackage{graphicx}
 \usepackage[english]{babel}
@@ -34,7 +34,7 @@
 
 \title{Generational Garbage Collector}
 \author{Michal Makson, Rafal Gawel}
-\institute{AGH}
+\institute{AGH University of Science and Technology}
 \date{}
 
 
@@ -113,14 +113,6 @@ Illustration presenting tendency of objects lifetime
 	This fact is exploited to make garbage collector collect only the fresh objects.
 \end{frame}
 
-\begin{frame}{Minor Collection}
-	To activate garbage collection process only on newer objects a simple trick is used.
-	\\
-	The trick is to consider older objects memory blocks as part of program data area.
-	\\
-	By doing so, we avoid garbage collector collecting from older objects area.
-\end{frame}
-
 \begin{frame}{Root set - pointers to objects}
 	The vast majority of pointers to new object is located in newer objects area.
 	\\
@@ -129,7 +121,21 @@ Illustration presenting tendency of objects lifetime
 	Some algorithms store pointers to newer objects located in older objects area to avoid scanning for them during garbage collection process.
 \end{frame}
 
-\begin{frame}{Before a generational Minor Collection}
+\begin{frame}{Minor Collection}
+To activate garbage collection process only on newer objects a simple trick is used.
+\\
+The trick is to consider older objects memory blocks as part of program data area.
+\\
+By doing so, we avoid garbage collector collecting from older objects area.
+\end{frame}
+
+\begin{frame}{Minor Collection 2}
+With a Generational garbage collector we have a block of memory into which we are allocating our objects. This is now our first generation.
+\\
+Notice we also have an old generation but there may be object that may be alive, may not be alive.
+\end{frame}
+
+\begin{frame}{Minor Collection 3}{Before a generational Minor Collection}
 	\begin{tikzpicture}
 	\node[xshift=2cm] {Young Generation};
 	\node[yshift=-1.5cm,xshift=0.2cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] {};
@@ -175,7 +181,15 @@ Illustration presenting tendency of objects lifetime
 	\end{tikzpicture}
 \end{frame}
 
-\begin{frame}{After a generational Minor Collection}
+\begin{frame}{Minor Collection 4}
+When garbage collector runs, all the object in this case 1 2 3 and 4
+the survivor garbage collect will be moved to old generation.
+\\
+We can then clean the young generation and than carry on allocating objects inside the young generation.
+\end{frame}
+
+
+\begin{frame}{Minor Collection 5}{After a generational Minor Collection}
 	\begin{tikzpicture}
 	\node[xshift=2cm] {Young Generation};
 	\node[yshift=-1.5cm,xshift=0.2cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] {};
@@ -266,6 +280,20 @@ JVM Heap memory is divided into 4 spaces:
 		\item Survivor space - Space of objects which survived garbage collection but have not reached tenuring threshold yet. Survivor space is divided into 2 equal spaces called "Survivor 0" and "Survivor 1".
 		\item Old space - The objects to reach tenuring threshold are moved into Old space. Default value of tenuring threshold is 15 executions of garbage collector.
 	\end{itemize}
+\end{frame}
+
+\begin{frame}{Example of memory partition - JVM Heap 2}
+\begin{itemize}
+	\item Eden space - When creating a new object memory is allocated from Eden space.
+	\item Survivor space - Space of objects which survived garbage collection but have not reached tenuring threshold yet. Survivor space is divided into 2 equal spaces called "Survivor 0" and "Survivor 1".
+	\item Old space - The objects to reach tenuring threshold are moved into Old space. Default value of tenuring threshold is 15 executions of garbage collector.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{The end}
+\begin{center}
+Thank you
+\end{center}
 \end{frame}
 
 \end{document}
