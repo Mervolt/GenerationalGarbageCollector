@@ -45,67 +45,86 @@
 \end{frame}
 
 \begin{frame}{Garbage Collector}
-Garbage Collector is form of automatic memory management.
-Its responsibility is to reclaim memory used to allocate objects that are no longer used.
+Garbage Collector is form of automatic memory management.\\
+Its main responsibility is to reclaim memory used to allocate objects that are no longer used.
 \end{frame}
 
 \begin{frame}{Weak generational hypothesis}
-	Most allocated objects die young
-	
-	Objects tend to live longer past a certain age
+	Research referred to as Weak Generational Hypothesis
+	pointed two statements:
+	\newline
+	\begin{itemize}
+		\item Most allocated objects die young
+		\item Objects tend to live longer past a certain age
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Lifetime of Objects}
 Add chart...
 \end{frame}
 
-\begin{frame}{Disadvantages of garbage collector}
-	
-	- Consuming additional resources
-	- Garbage collection process impacts performance
-	- Possibility of stalls in program execution
+\begin{frame}{Disadvantages of traditional garbage collector}
+	Garbage collection is an expensive operation.
+	Its execution:
+	\newline
+	\begin{itemize}
+		\item Consumes additional resources
+		\item Impacts performance
+		\item Stalls program execution
+	\end{itemize}
 	
 \end{frame}
 
 \begin{frame}{Improving performance of Garbage Collector}
-	
-	Considering the fact disadvantages of using garbage collector concern mainly performance an optimization for process was searched.
-	
-	The solution is Generational Garbage Collector which exploits the facts from "Weak generational hypothesis"
-	
+	Disadvantages of using garbage collector concern mainly performance. 
+	\\Therefore, process optimization was searched.
+	\newline
+	The solution is Generational Garbage Collector which exploits statements from "Weak generational hypothesis".
 \end{frame}
 
 
 \begin{frame}{Generational Garbage Collection}
-	Generational garbage collection algorithms are fastest and most efficient known garbage collection algorithms which make us assumptions: 
-	- Heap memory is divided into older and newer objects
-	- Most of the time garbage collection process runs only on newer objects
-	- Collection of older objects is processed only when necessary
-	
+	Generational garbage collection algorithms are fastest and most efficient known garbage collection algorithms.
+	 The main assumptions are that:
+	 \newline
+	 \begin{itemize}
+	 	\item Heap memory is divided into older and newer objects areas
+	 	\item Most of the time garbage collection process runs only on newer objects area
+	 	\item Collection of older objects is processed only when necessary
+	 \end{itemize}
 \end{frame}
 
-\begin{frame}{Memory division}
-	Except older and newer objects memory blocks, there is a third region of memory - program data area.
+\begin{frame}{Memory division - program data area}
+	Except older and newer objects memory blocks, there is also a third memory block - program data area.
+	\newline
+	This fact is exploited to make garbage collector collect only the fresh objects.
+\end{frame}
+
+\begin{frame}{New objects collection}
 	To activate garbage collection process only on newer objects a simple trick is used.
+	\\
 	The trick is to consider older objects memory blocks as part of program data area.
 \end{frame}
 
-\begin{frame}{Pointers to Newer objects}
-	To improve garbage collection process on newer objects even further the fact that vast majority of pointers to newer chunks is located in newer objects memory.
-	Some of the algorithms store pointers located in old objects memory and program data to avoid scanning for them during garbage collection process.
+\begin{frame}{Root set - pointers to objects}
+	The vast majority of pointers to new object is located in newer objects area.
+	\\
+	To improve garbage collection proces even further this fact is utilized.
+	\\
+	Some algorithm store pointers to newer objects located in older objects are to avoid scanning for them during garbage collection process.
 \end{frame}
 
 \begin{frame}{Full garbage collection processes}
-	
 	Garbage collection processes run on whole heap memory are only a small percentage of all generational garbage collection processes.
+	\\
 	Full garbage collection is executed when insufficient 
-	amount of memory has been freed and to retrieve unreachable chunks.
+	amount of memory has been freed and to retrieve unreachable chunks of memory.
 \end{frame}
 
 \begin{frame}{Older objects threshold}
 	Generational garbage collection algorithms differ in partition between newer and older objects.
+	\\
 	Exact difference between older and younger object, amount of generations and frequency of full memory garbage collection differ between algorithms.
-	They also make use chunk usage statistics to exploit it.
 \end{frame}
 
 
