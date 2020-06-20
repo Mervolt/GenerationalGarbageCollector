@@ -16,6 +16,7 @@
 \input{listing_theme.tex}
 
 \usepackage{tikz}
+\usetikzlibrary{shapes}
 
 
 % Add any additional packages you use in your presentation
@@ -116,5 +117,99 @@ By example of Java Heap fraction Eden, survivors..
 content...
 \end{frame}
 
+\begin{frame}{Before a generational Minor Collection}
+\begin{tikzpicture}
+\node[xshift=2cm] {Young Generation};
+\node[yshift=-1.5cm,xshift=0.2cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=0.6cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=1cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=1.8cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] (3) {};
+\node[yshift=-1.5cm,xshift=2.6cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=3.8cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=1.4cm,draw, rectangle,fill=green!30,text width=0.2cm, minimum height=1cm] (1) {1};
+\node[yshift=-1.5cm,xshift=2.2cm,draw, rectangle,fill=green!30,text width=0.2cm, minimum height=1cm] (2) {2};
+\node[yshift=-1.5cm,xshift=3cm,draw, rectangle,fill=green!30,text width=0.2cm, minimum height=1cm] (3) {3};
+\node[yshift=-1.5cm,xshift=3.4cm,draw, rectangle,fill=green!30,text width=0.2cm, minimum height=1cm] (4) {4};
+
+
+\node[xshift=7.2cm] () {Old Generation};
+\node[yshift=-1.5cm,xshift=9cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=8.6cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=8.2cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=7.8cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=7.4cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=7cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=6.6cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=6.2cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=5.8cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=5.4cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
+
+\node[yshift=-4.4cm,xshift=8.3cm] {live};
+\node[yshift=-4.4cm,xshift=7.5cm,draw, rectangle,fill=green!30,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-5cm,xshift=8.4cm] {dead};
+\node[yshift=-5cm,xshift=7.5cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-5.6cm,xshift=8.3cm] {free};
+\node[yshift=-5.6cm,xshift=7.5cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-6.2cm,xshift=8.7cm] {unknown};
+\node[yshift=-6.2cm,xshift=7.5cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
+
+\node[yshift=-5.4cm] {Root set};
+\node[xshift=1cm,yshift=-5cm,draw, rectangle,fill=red!25,text width=0.2cm, minimum height=0.8cm] (R1) {};
+\node[xshift=1cm,yshift=-5.8cm,draw, rectangle,fill=red!25,text width=0.2cm, minimum height=0.8cm] (R2) {};
+\draw[->, to path={-| (\tikztotarget)}] (R1) edge (1);
+\draw[->, to path={-| (\tikztotarget)}] (R2) edge (4);
+\draw[->] (1) -- (1.4,-0.5) -- (2.2,-0.5) -> (2);
+\draw[->] (2) -- (2.2,-2.5) -- (3,-2.5) -> (3);
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}{After a generational Minor Collection}
+\begin{tikzpicture}
+\node[xshift=2cm] {Young Generation};
+\node[yshift=-1.5cm,xshift=0.2cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=0.6cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=1cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=1.4cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=1.8cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] (3) {};
+\node[yshift=-1.5cm,xshift=2.2cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=2.6cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=3cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=3.4cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=3.8cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] {};
+
+
+
+
+
+\node[xshift=7.2cm] () {Old Generation};
+\node[yshift=-1.5cm,xshift=9cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=8.6cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=8.2cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=7.8cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=7.4cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=5.4cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=7cm,draw, rectangle,fill=green!30,text width=0.2cm, minimum height=1cm] (1) {1};
+\node[yshift=-1.5cm,xshift=6.6cm,draw, rectangle,fill=green!30,text width=0.2cm, minimum height=1cm] (2) {2};
+\node[yshift=-1.5cm,xshift=6.2cm,draw, rectangle,fill=green!30,text width=0.2cm, minimum height=1cm] (3) {3};
+\node[yshift=-1.5cm,xshift=5.8cm,draw, rectangle,fill=green!30,text width=0.2cm, minimum height=1cm] (4) {4};
+
+\node[yshift=-4.4cm,xshift=8.3cm] {live};
+\node[yshift=-4.4cm,xshift=7.5cm,draw, rectangle,fill=green!30,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-5cm,xshift=8.4cm] {dead};
+\node[yshift=-5cm,xshift=7.5cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-5.6cm,xshift=8.3cm] {free};
+\node[yshift=-5.6cm,xshift=7.5cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-6.2cm,xshift=8.7cm] {unknown};
+\node[yshift=-6.2cm,xshift=7.5cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
+
+\node[yshift=-5.4cm] {Root set};
+\node[xshift=1cm,yshift=-5cm,draw, rectangle,fill=red!25,text width=0.2cm, minimum height=0.8cm] (R1) {};
+\node[xshift=1cm,yshift=-5.8cm,draw, rectangle,fill=red!25,text width=0.2cm, minimum height=0.8cm] (R2) {};
+\draw[->, to path={-| (\tikztotarget)}] (R1) edge (1);
+\draw[->, to path={-| (\tikztotarget)}] (R2) edge (4);
+\draw[->] (1) -- (7,-0.5) -- (6.6,-0.5) -> (2);
+\draw[->] (2) -- (6.6,-2.5) -- (6.2,-2.5) -> (3);
+\end{tikzpicture}
+\end{frame}
 
 \end{document}
