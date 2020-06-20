@@ -130,125 +130,113 @@ By doing so, we avoid garbage collector collecting from older objects area.
 \end{frame}
 
 \begin{frame}{Minor Collection 2}
-With a Generational garbage collector we have a block of memory into which we are allocating our objects. This is now our first generation.
+With a Generational garbage collector we have a block of memory into which we are allocating our objects. This is our young generation.
 \\
-Notice we also have an old generation but there may be object that may be alive, may not be alive.
+Notice that we also have an old generation, but there may be an object that may be alive, but may not be alive.
 \end{frame}
 
 \begin{frame}{Minor Collection 3}{Before a generational Minor Collection}
-	\begin{tikzpicture}
-	\node[xshift=2cm] {Young Generation};
-	\node[yshift=-1.5cm,xshift=0.2cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=0.6cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=1cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=1.8cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] (3) {};
-	\node[yshift=-1.5cm,xshift=2.6cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=3.8cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=1.4cm,draw, rectangle,fill=green!30,text width=0.2cm, minimum height=1cm] (1) {1};
-	\node[yshift=-1.5cm,xshift=2.2cm,draw, rectangle,fill=green!30,text width=0.2cm, minimum height=1cm] (2) {2};
-	\node[yshift=-1.5cm,xshift=3cm,draw, rectangle,fill=green!30,text width=0.2cm, minimum height=1cm] (3) {3};
-	\node[yshift=-1.5cm,xshift=3.4cm,draw, rectangle,fill=green!30,text width=0.2cm, minimum height=1cm] (4) {4};
-	
-	
-	\node[xshift=7.2cm] () {Old Generation};
-	\node[yshift=-1.5cm,xshift=9cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=8.6cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=8.2cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=7.8cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=7.4cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=7cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=6.6cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=6.2cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=5.8cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=5.4cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
-	
-	\node[yshift=-4.4cm,xshift=8.3cm] {live};
-	\node[yshift=-4.4cm,xshift=7.5cm,draw, rectangle,fill=green!30,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-5cm,xshift=8.4cm] {dead};
-	\node[yshift=-5cm,xshift=7.5cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-5.6cm,xshift=8.3cm] {free};
-	\node[yshift=-5.6cm,xshift=7.5cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-6.2cm,xshift=8.7cm] {unknown};
-	\node[yshift=-6.2cm,xshift=7.5cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
-	
-	\node[yshift=-5.4cm] {Root set};
-	\node[xshift=1cm,yshift=-5cm,draw, rectangle,fill=red!25,text width=0.2cm, minimum height=0.8cm] (R1) {};
-	\node[xshift=1cm,yshift=-5.8cm,draw, rectangle,fill=red!25,text width=0.2cm, minimum height=0.8cm] (R2) {};
-	\draw[->, to path={-| (\tikztotarget)}] (R1) edge (1);
-	\draw[->, to path={-| (\tikztotarget)}] (R2) edge (4);
-	\draw[->] (1) -- (1.4,-0.5) -- (2.2,-0.5) -> (2);
-	\draw[->] (2) -- (2.2,-2.5) -- (3,-2.5) -> (3);
-	\end{tikzpicture}
+\begin{tikzpicture}
+\node[xshift=2cm] {Young Generation};
+\node[yshift=-1.5cm,xshift=0.2cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=0.6cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=1cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=1.8cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] (3) {};
+\node[yshift=-1.5cm,xshift=2.6cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=3cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=3.8cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=1.4cm,draw, rectangle,fill=red!50,text width=0.2cm, minimum height=1cm] (1) {A};
+\node[yshift=-1.5cm,xshift=2.2cm,draw, rectangle,fill=red!50,text width=0.2cm, minimum height=1cm] (2) {B};
+\node[yshift=-1.5cm,xshift=3.4cm,draw, rectangle,fill=red!50,text width=0.2cm, minimum height=1cm] (4) {C};
+
+
+\node[xshift=7.2cm] () {Old Generation};
+\node[yshift=-1.5cm,xshift=9cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=8.6cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=8.2cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=7.8cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=7.4cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=7cm,draw, rectangle,fill=blue!25,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=6.6cm,draw, rectangle,fill=blue!25,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=6.2cm,draw, rectangle,fill=blue!25,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=5.8cm,draw, rectangle,fill=blue!25,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=5.4cm,draw, rectangle,fill=blue!25,text width=0.2cm, minimum height=0.5cm] {};
+
+\node[yshift=-4.4cm,xshift=7.5cm,draw, rectangle,fill=red!50,text width=1.8cm, minimum height=0.5cm] {live};
+\node[yshift=-5cm,xshift=7.5cm,draw, rectangle,fill=white,text width=1.8cm, minimum height=0.5cm] {dead};
+\node[yshift=-5.6cm,xshift=7.5cm,draw, rectangle,fill=blue!25,text width=1.8cm, minimum height=0.5cm] {free};
+\node[yshift=-6.2cm,xshift=7.5cm,draw, rectangle,fill=gray!35,text width=1.8cm, minimum height=0.5cm] {unknown};
+
+\node[yshift=-5.4cm] {Root set};
+\node[xshift=1cm,yshift=-5cm,draw, rectangle,fill=green!30,text width=0.2cm, minimum height=0.8cm] (R1) {};
+\node[xshift=1cm,yshift=-5.8cm,draw, rectangle,fill=green!30,text width=0.2cm, minimum height=0.8cm] (R2) {};
+\draw[->, to path={-| (\tikztotarget)}] (R1) edge (1);
+\draw[->, to path={-| (\tikztotarget)}] (R2) edge (4);
+\draw[->] (1) -- (1.4,-0.5) -- (2.2,-0.5) -> (2);
+\end{tikzpicture}
 \end{frame}
 
 \begin{frame}{Minor Collection 4}
-When garbage collector runs, all the object in this case 1 2 3 and 4
-the survivor garbage collect will be moved to old generation.
+When garbage collector runs, all surviving objects (in this case A, B and C)
+will be transferred to the old generation.
 \\
 We can then clean the young generation and than carry on allocating objects inside the young generation.
 \end{frame}
 
 
 \begin{frame}{Minor Collection 5}{After a generational Minor Collection}
-	\begin{tikzpicture}
-	\node[xshift=2cm] {Young Generation};
-	\node[yshift=-1.5cm,xshift=0.2cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=0.6cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=1cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=1.4cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=1.8cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] (3) {};
-	\node[yshift=-1.5cm,xshift=2.2cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=2.6cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=3cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=3.4cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=3.8cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] {};
-	
-	
-	
-	
-	
-	\node[xshift=7.2cm] () {Old Generation};
-	\node[yshift=-1.5cm,xshift=9cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=8.6cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=8.2cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=7.8cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=7.4cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=5.4cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-1.5cm,xshift=7cm,draw, rectangle,fill=green!30,text width=0.2cm, minimum height=1cm] (1) {1};
-	\node[yshift=-1.5cm,xshift=6.6cm,draw, rectangle,fill=green!30,text width=0.2cm, minimum height=1cm] (2) {2};
-	\node[yshift=-1.5cm,xshift=6.2cm,draw, rectangle,fill=green!30,text width=0.2cm, minimum height=1cm] (3) {3};
-	\node[yshift=-1.5cm,xshift=5.8cm,draw, rectangle,fill=green!30,text width=0.2cm, minimum height=1cm] (4) {4};
-	
-	\node[yshift=-4.4cm,xshift=8.3cm] {live};
-	\node[yshift=-4.4cm,xshift=7.5cm,draw, rectangle,fill=green!30,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-5cm,xshift=8.4cm] {dead};
-	\node[yshift=-5cm,xshift=7.5cm,draw, rectangle,fill=orange!25,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-5.6cm,xshift=8.3cm] {free};
-	\node[yshift=-5.6cm,xshift=7.5cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
-	\node[yshift=-6.2cm,xshift=8.7cm] {unknown};
-	\node[yshift=-6.2cm,xshift=7.5cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
-	
-	\node[yshift=-5.4cm] {Root set};
-	\node[xshift=1cm,yshift=-5cm,draw, rectangle,fill=red!25,text width=0.2cm, minimum height=0.8cm] (R1) {};
-	\node[xshift=1cm,yshift=-5.8cm,draw, rectangle,fill=red!25,text width=0.2cm, minimum height=0.8cm] (R2) {};
-	\draw[->, to path={-| (\tikztotarget)}] (R1) edge (1);
-	\draw[->, to path={-| (\tikztotarget)}] (R2) edge (4);
-	\draw[->] (1) -- (7,-0.5) -- (6.6,-0.5) -> (2);
-	\draw[->] (2) -- (6.6,-2.5) -- (6.2,-2.5) -> (3);
-	\end{tikzpicture}
+\begin{tikzpicture}
+\node[xshift=2cm] {Young Generation};
+\node[yshift=-1.5cm,xshift=0.2cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=0.6cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=1cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=1.4cm,draw, rectangle,fill=blue!25,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=1.8cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] (3) {};
+\node[yshift=-1.5cm,xshift=2.2cm,draw, rectangle,fill=blue!25,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=2.6cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=3cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=3.4cm,draw, rectangle,fill=blue!25,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=3.8cm,draw, rectangle,fill=white,text width=0.2cm, minimum height=0.5cm] {};
+
+
+\node[xshift=7.2cm] () {Old Generation};
+\node[yshift=-1.5cm,xshift=9cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=8.6cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=8.2cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=7.8cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=7.4cm,draw, rectangle,fill=gray!35,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=5.4cm,draw, rectangle,fill=blue!25,text width=0.2cm, minimum height=0.5cm] {};
+\node[yshift=-1.5cm,xshift=5.8cm,draw, rectangle,fill=blue!25,text width=0.2cm, minimum height=0.5cm] {};	
+\node[yshift=-1.5cm,xshift=7cm,draw, rectangle,fill=red!50,text width=0.2cm, minimum height=1cm] (1) {A};
+\node[yshift=-1.5cm,xshift=6.6cm,draw, rectangle,fill=red!50,text width=0.2cm, minimum height=1cm] (2) {B};
+\node[yshift=-1.5cm,xshift=6.2cm,draw, rectangle,fill=red!50,text width=0.2cm, minimum height=1cm] (4) {C};
+
+\node[yshift=-4.4cm,xshift=8.3cm,draw, rectangle,fill=red!50,text width=1.8cm, minimum height=0.5cm] {live};
+\node[yshift=-5cm,xshift=8.3cm,draw, rectangle,fill=white,text width=1.8cm, minimum height=0.5cm] {dead};
+\node[yshift=-5.6cm,xshift=8.3cm,draw, rectangle,fill=blue!25,text width=1.8cm, minimum height=0.5cm] {free};
+\node[yshift=-6.2cm,xshift=8.3cm,draw, rectangle,fill=gray!35,text width=1.8cm, minimum height=0.5cm] {unknown};
+
+
+\node[yshift=-5.4cm] {Root set};
+\node[xshift=1cm,yshift=-5cm,draw, rectangle,fill=green!30,text width=0.2cm, minimum height=0.8cm] (R1) {};
+\node[xshift=1cm,yshift=-5.8cm,draw, rectangle,fill=green!30,text width=0.2cm, minimum height=0.8cm] (R2) {};
+\draw[->, to path={-| (\tikztotarget)}] (R1) edge (1);
+\draw[->, to path={-| (\tikztotarget)}] (R2) edge (4);
+\draw[->] (1) -- (7,-0.5) -- (6.6,-0.5) -> (2);
+\end{tikzpicture}
 \end{frame}
 
 \begin{frame}{Full garbage collection processes}
-	Garbage collection processes executed on whole heap memory are only a small percentage of all generational garbage collection processes.
-	\\
-	Full garbage collection is executed when insufficient 
-	amount of memory has been freed and to retrieve unreachable chunks of memory.
+Garbage collection processes executed on whole heap memory are only a small percentage of all generational garbage collection processes.
+\\
+Full garbage collection is executed when insufficient 
+amount of memory has been freed and to retrieve unreachable chunks of memory.
 \end{frame}
 
 \begin{frame}{Older objects threshold}
-	Generational garbage collection algorithms differ in partition between newer and older objects.
-	\\
-	Exact difference between older and younger object, amount of generations and frequency of full memory garbage collection differ between implementations.
+Generational garbage collection algorithms differ in partition between newer and older objects.
+\\
+Exact difference between older and younger object, amount of generations and frequency of full memory garbage collection differ between implementations.
 \end{frame}
 
 
@@ -292,7 +280,7 @@ JVM Heap memory is divided into 4 spaces:
 
 \begin{frame}{The end}
 \begin{center}
-Thank you
+Thank you for your attention
 \end{center}
 \end{frame}
 
