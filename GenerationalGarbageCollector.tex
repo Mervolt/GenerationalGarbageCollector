@@ -130,9 +130,11 @@ By doing so, we avoid garbage collector collecting from older objects area.
 \end{frame}
 
 \begin{frame}{Minor Collection 2}
-With a Generational garbage collector we have a block of memory into which we are allocating our objects. This is our young generation.
-\\
-Notice that we also have an old generation, but there may be an object that may be alive, but may not be alive.
+	As mentioned we have two spaces with allocated objects:\newline young and old.
+	\\
+	While running minor collection we acknowledge which objects from young objects are dead and may be deleted.
+	\\
+	However, we do not have information about old objects so memory which was earlier allocated is treated as unknown.
 \end{frame}
 
 \begin{frame}{Minor Collection 3}{Before a generational Minor Collection}
@@ -180,7 +182,7 @@ Notice that we also have an old generation, but there may be an object that may 
 When garbage collector runs, all surviving objects (in this case A, B and C)
 will be transferred to the old generation.
 \\
-We can then clean the young generation and than carry on allocating objects inside the young generation.
+By doing so, we free space for new objects and can carry on with new objects allocation.
 \end{frame}
 
 
